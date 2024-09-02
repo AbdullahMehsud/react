@@ -21,6 +21,8 @@ function App() {
     setPassword(pass)
   }, [length, allowNumber, allowChar, setPassword])
 
+
+  
   const coppyPasswordToClipBoard = useCallback(()=> {
           passwordRef.current?.select()
           window.navigator.clipboard.writeText(password)
