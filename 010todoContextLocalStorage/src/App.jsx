@@ -25,6 +25,7 @@ function App() {
     id ? {...prevTodo, complete: !prevTodo.complete} : prevTodo ))
   }
 
+  
   useEffect(() => {
     const todos = JSON.parse(localStorage.getItem("todos"))
     if(todos && todos.length > 0) {
