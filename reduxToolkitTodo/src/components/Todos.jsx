@@ -1,20 +1,43 @@
-import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { removeTodo } from '../features/todo/todoSlice'
-function Todos() {
-  const todos = useSelector(state => state.todos)
-  const dispatch = useDispatch()
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { removeTodo, toggleCompleteTodo } from "../features/todo/todoSlice";
+function Todos({setEditTodo}) {
+  const todos = useSelector((state) => state.todos);
+  const dispatch = useDispatch();
+
+
+  const handleToggleComplete = (id) => {
+      dispatch(toggleCompleteTodo(id))
+  }
   return (
     <>
-    <ul className="list-none">
+      <ul className="list-none">
         {todos.map((todo) => (
           <li
-            className="mt-4 flex justify-between items-center bg-zinc-800 px-6 py-2 rounded"
+            className={`mt-4 flex justify-between  items-center bg-zinc-800 px-6 py-2 rounded mx-auto w-full max-w-2xl ${todo.completed ? 'line-through text-red-800' : 'text-white'}`}
             key={todo.id}
           >
-            <div className='text-white'>{todo.text}</div>
+            <input 
+            type="checkbox" 
+            checked={todo.completed}
+            onChange={() => handleToggleComplete(todo.id)}
+            className="mr-4" 
+          />
+            <dev className="text-white">{todo.text}</dev>
+            <div className="flex justify-end space-x-2">
             <button
-             onClick={() => dispatch(removeTodo(todo.id))}
+            onClick={() => setEditTodo(todo)} 
+            className="text-white  bg-red-500 border-0 py-1 px-4 focus:outline-none hover:bg-red-600 rounded text-md">
+            <svg 
+                className="feather feather-edit" fill="none" height="24" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+            <path 
+                d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+            <path 
+                d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+            </svg>
+            </button>
+            <button
+              onClick={() => dispatch(removeTodo(todo.id))}
               className="text-white bg-red-500 border-0 py-1 px-4 focus:outline-none hover:bg-red-600 rounded text-md"
             >
               <svg
@@ -32,11 +55,12 @@ function Todos() {
                 />
               </svg>
             </button>
+            </div>
           </li>
         ))}
       </ul>
     </>
-  )
+  );
 }
 
-export default Todos
+export default Todos;
