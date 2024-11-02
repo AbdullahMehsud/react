@@ -27,9 +27,9 @@ function RandomProduct() {
     {products.map((product, index) => {
         const id = `${product.id}`;
         const name = `${product.title}`;
-        const thumbnail = `${product.images[2]}`
+        const thumbnail = `${product.images}`
         return (
-            <div className='"bg-white w-[300px] m-4 rounded-xl shadow-lg hover:shadow-2xl py-10' key={id}>
+            <div className='bg-white w-[300px] m-4 rounded-xl shadow-lg hover:shadow-2xl py-10' key={id}>
             <div className='mx-auto w-40'>
                 <img src={thumbnail} alt={name} className='rounded-md'/>
             </div>
