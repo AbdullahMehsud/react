@@ -1,7 +1,10 @@
 import React from 'react'
 import {useState, useEffect} from 'react'
 import {useParams} from 'react-router-dom'
+import { useDispatch } from 'react-redux';
+import { addItem } from '../../redux/slices/cartSlice';
 function ProductDetails() {
+  const dispatch = useDispatch();
   const {productId} = useParams();
   const [product, setProduct] = useState([])
   const url = `https://api.freeapi.app/api/v1/public/randomproducts/${productId}`;
@@ -27,6 +30,7 @@ function ProductDetails() {
           <p className="text-xl font-semibold text-blue-500 mb-2">${product.price}</p>
           <p className="text-md text-gray-600 mb-4">Brand: {product.brand}</p>
           <p className="text-md text-gray-600 mb-4">Rating: {product.rating}</p>
+          <button onClick={(e) => dispatch(addItem({name: product.title, price: product.price}))} className='bg-blue-400 py-2 px-2 shadow-lg rounded-md hover:bg-blue-600 hover:text-white text-black hover:shadow-xl'>Add to Cart</button>
         </div>
         <div className="w-full lg:w-1/2 flex items-center justify-center bg-gray-200">
           <img

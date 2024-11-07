@@ -1,7 +1,11 @@
 import React from 'react'
 import {useEffect, useState} from 'react'
 import {useNavigate} from 'react-router-dom'
+import { useDispatch } from 'react-redux';
+import { addItem } from '../../redux/slices/cartSlice';
+
 function RandomProduct() {
+    const dispatch = useDispatch()
     const randomProduct = 'https://api.freeapi.app/api/v1/public/randomproducts';
     const [products, setProducts] = useState([])
     const navigate = useNavigate()
@@ -37,7 +41,8 @@ function RandomProduct() {
                 <p>{name}</p>
             </div>
             <div className='flex justify-center items-center'>
-                <button onClick={() => handleProductClick(id)} className='bg-blue-400 py-2 px-2 shadow-lg rounded-md hover:bg-blue-600 hover:text-white text-black hover:shadow-xl'>Details</button>
+                <button onClick={() => handleProductClick(id)} className='bg-blue-400 py-2 px-2 shadow-lg rounded-md hover:bg-blue-600 hover:text-white text-black hover:shadow-xl m-1'>Details</button>
+                <button onClick={(e) => dispatch(addItem({name: product.title, price: product.price}))} className='bg-blue-400 py-2 px-2 shadow-lg rounded-md hover:bg-blue-600 hover:text-white text-black hover:shadow-xl'>Add to Cart</button>
             </div>
         </div>
         )
